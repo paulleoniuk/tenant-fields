@@ -1,24 +1,28 @@
-# README
+# Custom Fields Management System
+## Overview
+This Rails application allows users to manage custom fields with different types, including text, number, single select, and multiple select.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Key Points
+JSON Column for Value: The value column in CustomFieldValue uses JSON format to handle various field types flexibly
 
-Things you may want to cover:
+## TODO
+### Validation Enhancements:
+* Add future validation to ensure options for select fields are mandatory.
 
-* Ruby version
+### Refactoring:
 
-* System dependencies
+* Move CustomFieldValue validations to a separate service as model is huge
+* Make CustomField independent from Tenant to allow broader usage.
 
-* Configuration
 
-* Database creation
+### Routes
+PATCH /users/:id/update_value
 
-* Database initialization
+Parameters:
+* custom_field_id: ID of the custom field.
+* value: New value for the custom field.
+* id: User ID to update.
+* Request Example:
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```curl -X PATCH "http://localhost:3000/users/1/update_value" \ -H "Content-Type: application/json" \ -d '{"custom_field_id": 1, "value": "New Value"}' ```

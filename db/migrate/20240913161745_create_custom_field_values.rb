@@ -9,6 +9,6 @@ class CreateCustomFieldValues < ActiveRecord::Migration[7.2]
     end
 
     add_index :custom_field_values, :value, using: :gin
-    add_index :custom_field_values, [:customizable_type, :customizable_id]
+    add_index :custom_field_values, [ :customizable_type, :customizable_id ]
   end
 end

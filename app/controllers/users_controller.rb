@@ -3,29 +3,30 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /custom_fields/:id/update_value
   def update_value
-    custom_field = CustomField.find(params[:custom_field_id])
-    value = params[:value]
+    custom_field = CustomField.find(field_params[:custom_field_id])
 
-    validator = CustomFieldValidator.new(custom_field.field_type, value)
-    validator.validate
+    result = CustomFieldUpdater.new(customizable: @user,
+                                    custom_field: custom_field,
+                                    data: field_params[:value]).call
 
-    service = CustomFieldUpdater.new(@user, custom_field, value)
-    result = service.call
-
-    render json: { message: result[:message] }, status: :ok
-  rescue CustomFieldValidator::ValidationError, CustomFieldUpdater::InvalidFieldTypeError => e
-    render json: { error: e.message }, status: :unprocessable_entity
-  rescue StandardError => e
-    render json: { error: 'An unexpected error occurred' }, status: :internal_server_error
+    if result[:success]
+      render json: { message: result[:message] }, status: :ok
+    else
+      render json: { errors: result[:errors] }, status: :unprocessable_entity
+    end
   end
 
   private
 
+  def field_params
+    params.permit(:custom_field_id, :value, :id)
+  end
+
   def set_user
     # User or OtherEntity
-    @user = User.find(params[:id]) if params[:id]
+    @user = User.find(field_params[:id]) if field_params[:id]
     # We may add here also authentication
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'User not found' }, status: :not_found
+    render json: { error: "User not found" }, status: :not_found
   end
 end
