@@ -2,6 +2,9 @@
 ## Overview
 This Rails application allows users to manage custom fields with different types, including text, number, single select, and multiple select.
 
+## Demo data
+```db/seeds.rb```
+
 ## Key Points
 JSON Column for Value: The value column in CustomFieldValue uses JSON format to handle various field types flexibly
 
