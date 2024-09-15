@@ -16,17 +16,17 @@ class CustomFieldValue < ApplicationRecord
     extracted_value = value["data"]
 
     error_message = case field_type
-                    when "text"
+    when "text"
                       validate_text(extracted_value)
-                    when "number"
+    when "number"
                       validate_number(extracted_value)
-                    when "single_select"
+    when "single_select"
                       validate_single_select(extracted_value)
-                    when "multiple_select"
+    when "multiple_select"
                       validate_multiple_select(extracted_value)
-                    else
+    else
                       "Invalid field type: #{field_type}"
-                    end
+    end
 
     errors.add(:value, error_message) if error_message
   end

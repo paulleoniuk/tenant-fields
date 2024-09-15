@@ -8,7 +8,7 @@ class User < ApplicationRecord
     custom_field_values.includes(:custom_field).map do |cfv|
       {
         name: cfv.custom_field.name,
-        value: cfv.value
+        value: JSON.parse(cfv.value)
       }
     end
   end

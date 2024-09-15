@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_13_161745) do
   create_table "custom_fields", force: :cascade do |t|
     t.string "name"
     t.string "field_type"
-    t.text "options"
+    t.text "options", default: [], array: true
     t.bigint "tenant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
