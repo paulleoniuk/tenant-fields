@@ -25,4 +25,4 @@ Parameters:
 * Request Example:
 
 
-```curl -X PATCH "http://localhost:3000/users/1/update_value" \ -H "Content-Type: application/json" \ -d '{"custom_field_id": 1, "value": "New Value"}' ```
+``` curl -v -X PATCH "http://localhost:3000/users/1/update_value" -H "Content-Type: application/json" -d '{"custom_field_id": 1, "value": "New Value"}' ```
